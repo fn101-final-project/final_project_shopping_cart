@@ -1,5 +1,5 @@
 <template>
-  <NavbarComponent />
+  <NavbarComponent v-if="pageExist" />
   <router-view />
 </template>
 
@@ -9,6 +9,19 @@ import NavbarComponent from '@/components/NavBar.vue';
 export default {
   components: {
     NavbarComponent,
+  },
+  data() {
+    return {
+      pageExist: true,
+    };
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler() {
+        if (this.$route.name === '404') this.pageExist = false;
+      },
+    },
   },
 };
 </script>

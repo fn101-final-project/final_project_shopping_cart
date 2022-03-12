@@ -1,16 +1,29 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
 
 const routes = [
   {
-    path: '/home',
+    path: '/',
     name: 'home',
-    component: HomeView,
+    redirect: '/products',
   },
   {
     path: '/products',
     name: 'products',
     component: () => import('../views/ProductsView.vue'),
+  },
+  {
+    path: '/products/:productId',
+    name: 'product',
+    component: () => import('../views/ProductView.vue'),
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@/components/Page404Component.vue'),
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/404',
   },
 ];
 
