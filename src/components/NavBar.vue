@@ -1,6 +1,6 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-white sticky-top">
-    <div class="container-fluid">
+  <nav class="navbar sticky-top">
+    <div class="container-fluid position-relative">
       <div class="navbar-nav flex-row">
         <a class="nav-link" title="找商品" href="#"
           ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -11,7 +11,10 @@
         ></a>
       </div>
 
-      <a class="navbar-brand m-0" href="#">
+      <a
+        class="navbar-brand m-0 position-absolute top-50 start-50 translate-middle"
+        href="#"
+      >
         <img src="../assets/shop-logo.svg" alt="kohola-logo" />
       </a>
 
@@ -37,7 +40,14 @@
 
 <style scoped>
 nav {
+  height: 100px;
   border-bottom: 1px solid rgb(128, 128, 128, 0.4);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.9113154193155126) 96%,
+    rgba(255, 255, 255, 0.8394199944789114) 100%
+  );
 }
 .navbar-brand img {
   width: 70px;

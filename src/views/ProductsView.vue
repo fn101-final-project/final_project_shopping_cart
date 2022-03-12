@@ -1,48 +1,91 @@
 <template>
   <div class="container">
+    <div class="text-start py-5">Breadcumb & Filter</div>
     <div class="row">
-      <!-- <template v-for="product in products" :key="product.id"> -->
-      <ProductBox />
-      <ProductBox />
-      <ProductBox />
-      <ProductBox />
-      <ProductBox />
-      <ProductBox />
-      <ProductBox />
-      <ProductBox />
-      <!-- </template> -->
+      <template v-for="product in pageProducts" :key="product.id">
+        <ProductBox v-bind="product" />
+      </template>
     </div>
-    <nav
-      class="d-flex justify-content-center"
-      aria-label="Page navigation example"
+    <paginate
+      v-model="page"
+      :page-count="pageCount"
+      :prev-text="'&#xab;'"
+      :next-text="'&#xbb;'"
+      :container-class="'pagination'"
+      :page-class="'page-item'"
+      :page-link-class="'page-link'"
     >
-      <ul class="pagination">
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    </paginate>
   </div>
 </template>
 
 <script>
-import ProductBox from '@/components/ProductBox.vue';
+import axios from 'axios';
+import ProductBox from '@/components/ProductBoxComponent.vue';
+import Paginate from 'vuejs-paginate-next';
 
 export default {
   components: {
     ProductBox,
+    paginate: Paginate,
+  },
+  data() {
+    return {
+      page: 1,
+      pageCount: 0,
+      products: [],
+      productCountPerPage: 2,
+      serverPath: this.$store.state.serverPath,
+    };
+  },
+  mounted() {
+    axios.get(`${this.serverPath}/api/products`).then((response) => {
+      this.sliceProducts(response.data);
+      this.pageCount = this.products.length;
+    });
+  },
+  watch: {
+    page: {
+      handler(val) {
+        this.$router.push({ name: 'products', query: { page: val } });
+      },
+    },
+  },
+  computed: {
+    pageProducts() {
+      return this.products[this.$route.query.page - 1 || 0];
+    },
+  },
+  methods: {
+    sliceProducts(allProducts) {
+      for (let i = 0; i < allProducts.length; i += this.productCountPerPage) {
+        const chunk = allProducts.slice(i, i + this.productCountPerPage);
+        this.products.push(chunk);
+      }
+    },
   },
 };
 </script>
 
-<style scoped></style>
+<style>
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.page-link,
+.page-link:hover,
+.page-link:focus {
+  color: black;
+  cursor: pointer;
+}
+
+.page-link:focus {
+  box-shadow: none;
+}
+
+.page-item.active .page-link {
+  background: gray;
+  border-color: gray;
+}
+</style>
