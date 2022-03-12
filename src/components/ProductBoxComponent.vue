@@ -1,6 +1,9 @@
 <template>
   <div class="col-lg-3 col-md-6 product d-flex justify-content-center pb-5">
-    <div class="product-box d-flex flex-column text-start">
+    <div
+      class="product-box d-flex flex-column text-start"
+      @click="goToProduct(id)"
+    >
       <img :src="parseImgPath(pic)" alt="" />
       <h6 class="pt-2 m-0">{{ name }}</h6>
       <span>NT${{ price }}</span>
@@ -21,6 +24,9 @@ export default {
   methods: {
     parseImgPath(path) {
       return `${this.$store.state.serverPath}/img${path}`;
+    },
+    goToProduct(productId) {
+      this.$router.push({ name: 'product', params: { productId } });
     },
   },
 };

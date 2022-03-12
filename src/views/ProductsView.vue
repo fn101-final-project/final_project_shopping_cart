@@ -35,14 +35,15 @@ export default {
       pageCount: 0,
       products: [],
       productCountPerPage: 2,
-      serverPath: this.$store.state.serverPath,
     };
   },
   mounted() {
-    axios.get(`${this.serverPath}/api/products`).then((response) => {
-      this.sliceProducts(response.data);
-      this.pageCount = this.products.length;
-    });
+    axios
+      .get(`${this.$store.state.serverPath}/api/products`)
+      .then((response) => {
+        this.sliceProducts(response.data);
+        this.pageCount = this.products.length;
+      });
   },
   watch: {
     page: {
