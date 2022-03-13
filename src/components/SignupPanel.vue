@@ -1,6 +1,6 @@
 <template>
   <div class="d-grid gap-2 p-4 border-bottom">
-    <button class="btn btn-primary" type="button">使用facebook註冊</button>
+    <FacebookBtn>註冊</FacebookBtn>
   </div>
   <Form class="d-grid p-4 text-end" @submit="onSubmit">
     <Field
@@ -21,7 +21,10 @@
           placeholder="密碼"
           v-model="password"
         />
-        <ErrorMessage name="password" class="text-danger" />
+        <div class="d-flex justify-content-between">
+          <small class="ps-1 fw-light">至少8個字元</small>
+          <ErrorMessage name="password" class="text-danger" />
+        </div>
       </div>
       <div class="col-md-6">
         <Field
@@ -39,15 +42,10 @@
       type="text"
       :rules="isRequired"
       class="form-control mt-3"
-      placeholder="全名"
+      placeholder="用戶名"
     />
     <ErrorMessage name="full-name" class="text-danger" />
-    <Field
-      name="gender"
-      as="select"
-      class="form-select mt-3"
-      :rules="isRequired"
-    >
+    <Field name="gender" as="select" class="form-select mt-3">
       <option value="" disabled>性別</option>
       <option value="male">男</option>
       <option value="female">女</option>
@@ -61,23 +59,38 @@
       placeholder="Email"
     />
     <ErrorMessage name="email" class="text-danger" />
-    <button class="btn btn-primary mt-3" type="submit">立即加入</button>
+    <div class="border-top mt-4 py-3 text-start">
+      <input type="checkbox" v-model="agreeContract" />我同意<a href="#"
+        >網站服務條款及隱私設定</a
+      >
+    </div>
+    <button class="btn btn-primary mt-3" type="submit" :disabled="isDisabled">
+      立即加入
+    </button>
   </Form>
 </template>
 
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
+import FacebookBtn from '@/components/FacebookBtn.vue';
 
 export default {
   components: {
     Field,
     Form,
     ErrorMessage,
+    FacebookBtn,
   },
   data() {
     return {
       password: '',
+      agreeContract: false,
     };
+  },
+  computed: {
+    isDisabled() {
+      return this.agreeContract ? false : true;
+    },
   },
   methods: {
     onSubmit(values) {
