@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="text-start py-5">Breadcumb & Filter</div>
+    <div class="text-start py-5">Breadcrumb & Filter</div>
     <div class="row">
       <template v-for="product in pageProducts" :key="product.id">
         <ProductBox v-bind="product" />
