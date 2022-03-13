@@ -3,8 +3,8 @@ import createPersistedState from 'vuex-persistedstate';
 
 export default createStore({
   state: {
-    // serverPath: 'https://coolclothes.bounceme.net',
-    serverPath: 'http://localhost:3000',
+    serverPath: 'https://shopping-cart-bn.herokuapp.com',
+    // serverPath: 'http://localhost:5000',
     userToken: '',
   },
   getters: {},
