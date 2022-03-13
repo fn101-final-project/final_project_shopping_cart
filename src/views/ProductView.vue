@@ -102,6 +102,10 @@ export default {
         this.warning = '請輸入有效數字';
         this.isDisabled = true;
       }
+      if (this.number > this.product.quantity) {
+        this.warning = '庫存不足，請調整數量';
+        this.isDisabled = true;
+      }
     },
     addToCart() {
       this.beforeAdd();
