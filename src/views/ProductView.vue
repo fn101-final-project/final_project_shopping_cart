@@ -109,6 +109,20 @@ export default {
     },
     addToCart() {
       this.beforeAdd();
+
+      const productInCart = this.$store.state.userCart.find(
+        (product) => product.product_id === this.product.id
+      );
+
+      if (productInCart) {
+        if (productInCart.amount + this.number > this.product.quantity) {
+          this.warning = '庫存不足，請重新調整數量';
+          return true;
+        }
+      }
+
+      this.$store.commit('addToCart', [this.product.id, this.number]);
+      this.$swal('已加入購物車');
     },
   },
 };
