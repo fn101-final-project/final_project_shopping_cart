@@ -9,8 +9,12 @@
       :rules="isRequired"
       class="form-control"
       placeholder="帳號"
+      v-model="account"
     />
     <ErrorMessage name="account" class="text-danger" />
+    <div v-if="isUserExist" class="text-danger">
+      此帳號已有人使用，請設定其他帳號
+    </div>
     <div class="row">
       <div class="col-md-6">
         <Field
@@ -28,24 +32,29 @@
       </div>
       <div class="col-md-6">
         <Field
-          name="password-verify"
+          name="passwordVerify"
           type="password"
           :rules="validatePasswordVerify"
           class="form-control mt-3"
           placeholder="再次輸入密碼"
         />
-        <ErrorMessage name="password-verify" class="text-danger" />
+        <ErrorMessage name="passwordVerify" class="text-danger" />
       </div>
     </div>
     <Field
-      name="full-name"
+      name="fullName"
       type="text"
       :rules="isRequired"
       class="form-control mt-3"
       placeholder="用戶名"
     />
-    <ErrorMessage name="full-name" class="text-danger" />
-    <Field name="gender" as="select" class="form-select mt-3">
+    <ErrorMessage name="fullName" class="text-danger" />
+    <Field
+      name="gender"
+      as="select"
+      :rules="isRequired"
+      class="form-select mt-3"
+    >
       <option value="" disabled>性別</option>
       <option value="male">男</option>
       <option value="female">女</option>
@@ -73,6 +82,8 @@
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import FacebookBtn from '@/components/FacebookBtn.vue';
+import axios from 'axios';
+import qs from 'qs';
 
 export default {
   components: {
@@ -84,8 +95,17 @@ export default {
   data() {
     return {
       password: '',
+      account: '',
       agreeContract: false,
+      isUserExist: false,
     };
+  },
+  watch: {
+    account: {
+      handler() {
+        this.isUserExist = false;
+      },
+    },
   },
   computed: {
     isDisabled() {
@@ -95,6 +115,25 @@ export default {
   methods: {
     onSubmit(values) {
       console.log(values);
+      axios
+        .post(
+          `${this.$store.state.serverPath}/api/users`,
+          qs.stringify({
+            account: values.account,
+            password: values.password,
+            email: values.email,
+            fullName: values.fullName,
+          })
+        )
+        .then(() => {
+          this.$swal('註冊成功').then(() => {
+            this.$parent.changeToLogin();
+          });
+        })
+        .catch((error) => {
+          if (error.response.data.message === 'user already exists')
+            this.isUserExist = true;
+        });
     },
     isRequired(value) {
       return value ? true : '此欄位必填';
