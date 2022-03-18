@@ -114,7 +114,6 @@ export default {
   },
   methods: {
     onSubmit(values) {
-      console.log(values);
       axios
         .post(
           `${this.$store.state.serverPath}/api/users`,

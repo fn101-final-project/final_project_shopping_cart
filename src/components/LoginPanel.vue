@@ -30,6 +30,8 @@
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import FacebookBtn from '@/components/FacebookBtn.vue';
+import axios from 'axios';
+import qs from 'qs';
 
 export default {
   components: {
@@ -44,7 +46,24 @@ export default {
 
   methods: {
     onSubmit(values) {
-      console.log(values);
+      axios
+        .post(
+          `${this.$store.state.serverPath}/api/users/login`,
+          qs.stringify({
+            account: values.account,
+            password: values.password,
+          }),
+          { withCredentials: true }
+        )
+        .then(() => {
+          console.log('成功');
+        })
+        .catch((error) => {
+          // if (error.response.data.message === 'user not exists') {
+          // } else if (error.response.data.message === 'user not exists') {
+          // }
+          console.log(error.response);
+        });
     },
     isRequired(value) {
       return value ? true : '此欄位必填';
