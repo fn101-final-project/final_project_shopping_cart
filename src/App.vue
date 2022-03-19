@@ -1,5 +1,5 @@
 <template>
-  <NavbarComponent v-if="pageExist" />
+  <NavbarComponent v-if="pageExist" :key="$store.state.isLogin" />
   <router-view />
 </template>
 
@@ -22,6 +22,9 @@ export default {
         if (this.$route.name === '404') this.pageExist = false;
       },
     },
+  },
+  async mounted() {
+    await this.$store.commit('isAuthenticated');
   },
 };
 </script>

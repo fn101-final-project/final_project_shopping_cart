@@ -22,6 +22,7 @@
     <ErrorMessage name="password" class="text-danger" />
     <button class="btn btn-primary mt-3" type="submit">開始購物</button>
   </Form>
+  <div class="text-danger">{{ loginError }}</div>
   <div class="pb-4">
     <a href="#" class="link-dark">忘記密碼?</a>
   </div>
@@ -41,9 +42,10 @@ export default {
     FacebookBtn,
   },
   data() {
-    return {};
+    return {
+      loginError: '',
+    };
   },
-
   methods: {
     onSubmit(values) {
       axios
@@ -55,14 +57,15 @@ export default {
           }),
           { withCredentials: true }
         )
-        .then(() => {
-          console.log('成功');
+        .then((response) => {
+          this.$store.commit('setUserName', response.data.data.userName);
+          this.$store.state.isLogin = true;
+          this.$parent.redirectAfterLogin();
         })
         .catch((error) => {
-          // if (error.response.data.message === 'user not exists') {
-          // } else if (error.response.data.message === 'user not exists') {
-          // }
-          console.log(error.response);
+          if (error.response.status === 400)
+            this.loginError = '帳號或密碼錯誤，請重新輸入';
+          //500
         });
     },
     isRequired(value) {
