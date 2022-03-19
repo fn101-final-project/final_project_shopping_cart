@@ -1,14 +1,15 @@
 import { createStore } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
+import axios from 'axios';
 
 export default createStore({
   state: {
     // serverPath: 'https://shopping-cart-bn.herokuapp.com',
     serverPath: 'http://localhost:5000',
-    userToken: '',
     userCart: [],
+    isLogin: false,
+    userName: '',
   },
-  getters: {},
   mutations: {
     addToCart(state, data) {
       const product = state.userCart.find(
@@ -24,8 +25,17 @@ export default createStore({
       }
       // console.log(state.userCart);
     },
+    async isAuthenticated(state) {
+      const response = await axios.get(`${state.serverPath}/auth`, {
+        withCredentials: true,
+      });
+      if (response) state.isLogin = response.data === 'authenticated';
+    },
+    setUserName(state, data) {
+      state.userName = data;
+    },
   },
   actions: {},
   modules: {},
-  plugins: [createPersistedState({ paths: ['userToken', 'userCart'] })],
+  plugins: [createPersistedState({ paths: ['userCart', 'userName'] })],
 });

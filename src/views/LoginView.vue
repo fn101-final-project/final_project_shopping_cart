@@ -40,7 +40,13 @@ export default {
     return {
       isLogin: true,
       isSignup: false,
+      prevPath: null,
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.prevPath = from.path;
+    });
   },
   methods: {
     changeToSignup() {
@@ -51,15 +57,15 @@ export default {
       this.isLogin = true;
       this.isSignup = false;
     },
+    redirectAfterLogin() {
+      if (this.prevPath) this.$router.push({ path: this.prevPath });
+      this.$router.push({ name: 'products' });
+    },
   },
 };
 </script>
 
 <style scoped>
-.background {
-  /* background: rgb(187, 187, 187); */
-}
-
 button {
   background: rgb(233, 233, 233);
   border: 1px solid rgba(128, 128, 128, 0.3);
