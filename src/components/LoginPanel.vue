@@ -58,7 +58,7 @@ export default {
           { withCredentials: true }
         )
         .then((response) => {
-          this.$store.commit('setLoginState', response.data.data.userName);
+          this.$store.dispatch('setLogin', response.data.data.userName);
           this.$parent.redirectAfterLogin();
         })
         .catch((error) => {

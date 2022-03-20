@@ -73,7 +73,7 @@ export default {
           withCredentials: true,
         })
         .then(() => {
-          this.$store.commit('setLogoutState');
+          this.$store.dispatch('setLogout');
           this.$router.push({ name: 'products' });
         });
     },

@@ -121,7 +121,7 @@ export default {
         }
       }
 
-      this.$store.commit('addToCart', [this.product.id, this.number]);
+      this.$store.dispatch('addToCart', [this.product.id, Number(this.number)]);
       this.$swal('已加入購物車');
     },
   },
