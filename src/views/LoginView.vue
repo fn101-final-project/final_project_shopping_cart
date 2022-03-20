@@ -59,7 +59,7 @@ export default {
     },
     redirectAfterLogin() {
       if (this.prevPath) this.$router.push({ path: this.prevPath });
-      this.$router.push({ name: 'products' });
+      else this.$router.push({ name: 'products' });
     },
   },
 };

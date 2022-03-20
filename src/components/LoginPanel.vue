@@ -58,8 +58,7 @@ export default {
           { withCredentials: true }
         )
         .then((response) => {
-          this.$store.commit('setUserName', response.data.data.userName);
-          this.$store.state.isLogin = true;
+          this.$store.commit('setLoginState', response.data.data.userName);
           this.$parent.redirectAfterLogin();
         })
         .catch((error) => {

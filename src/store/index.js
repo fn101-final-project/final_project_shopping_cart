@@ -23,19 +23,31 @@ export default createStore({
         };
         state.userCart.push(newProduct);
       }
-      // console.log(state.userCart);
     },
-    async isAuthenticated(state) {
-      const response = await axios.get(`${state.serverPath}/auth`, {
-        withCredentials: true,
-      });
-      if (response) state.isLogin = response.data === 'authenticated';
+    setLoginState(state, userName) {
+      state.isLogin = true;
+      state.userName = userName;
     },
-    setUserName(state, data) {
-      state.userName = data;
+    setLogoutState(state) {
+      state.isLogin = false;
+      state.userName = '';
     },
   },
-  actions: {},
+  actions: {
+    checkAuthentication({ state, commit }) {
+      axios
+        .get(`${state.serverPath}/auth`, {
+          withCredentials: true,
+        })
+        .then((response) => {
+          if (response.data === 'authenticated') {
+            commit('setLoginState', state.userName);
+          } else {
+            commit('setLogout');
+          }
+        });
+    },
+  },
   modules: {},
   plugins: [createPersistedState({ paths: ['userCart', 'userName'] })],
 });

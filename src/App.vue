@@ -1,10 +1,11 @@
 <template>
-  <NavbarComponent v-if="pageExist" :key="$store.state.isLogin" />
+  <NavbarComponent v-if="pageExist" :key="isLogin" />
   <router-view />
 </template>
 
 <script>
 import NavbarComponent from '@/components/NavBar.vue';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -13,6 +14,7 @@ export default {
   data() {
     return {
       pageExist: true,
+      ...mapState(['isLogin']),
     };
   },
   watch: {
@@ -23,8 +25,8 @@ export default {
       },
     },
   },
-  async mounted() {
-    await this.$store.commit('isAuthenticated');
+  mounted() {
+    this.$store.dispatch('checkAuthentication');
   },
 };
 </script>

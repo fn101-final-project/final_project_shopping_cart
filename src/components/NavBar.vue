@@ -32,9 +32,7 @@
         ></router-link>
 
         <div v-else class="row">
-          <div class="col text-nowrap greetings">
-            Hi {{ $store.state.userName }}
-          </div>
+          <div class="col text-nowrap greetings">Hi {{ userName }}</div>
           <router-link
             class="nav-link col pe-4"
             title="會員登出"
@@ -64,13 +62,10 @@
 
 <script>
 import axios from 'axios';
+import { mapState } from 'vuex';
 
 export default {
-  data() {
-    return {
-      isLogin: this.$store.state.isLogin,
-    };
-  },
+  computed: { ...mapState(['isLogin', 'userName']) },
   methods: {
     doLogout() {
       axios
@@ -78,7 +73,7 @@ export default {
           withCredentials: true,
         })
         .then(() => {
-          this.$store.state.isLogin = false;
+          this.$store.commit('setLogoutState');
           this.$router.push({ name: 'products' });
         });
     },
