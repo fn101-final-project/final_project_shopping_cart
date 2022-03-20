@@ -32,7 +32,6 @@
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import FacebookBtn from '@/components/FacebookBtn.vue';
 import axios from 'axios';
-import qs from 'qs';
 
 export default {
   components: {
@@ -51,19 +50,22 @@ export default {
       axios
         .post(
           `${this.$store.state.serverPath}/api/users/login`,
-          qs.stringify({
+          {
             account: values.account,
             password: values.password,
-          }),
-          { withCredentials: true }
+          },
+          {
+            withCredentials: true,
+          }
         )
         .then((response) => {
           this.$store.dispatch('setLogin', response.data.data.userName);
           this.$parent.redirectAfterLogin();
         })
         .catch((error) => {
-          if (error.response.status === 400)
+          if (error.response.status === 400) {
             this.loginError = '帳號或密碼錯誤，請重新輸入';
+          }
           //500
         });
     },

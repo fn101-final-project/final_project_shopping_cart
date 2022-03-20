@@ -83,7 +83,6 @@
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import FacebookBtn from '@/components/FacebookBtn.vue';
 import axios from 'axios';
-import qs from 'qs';
 
 export default {
   components: {
@@ -115,15 +114,12 @@ export default {
   methods: {
     onSubmit(values) {
       axios
-        .post(
-          `${this.$store.state.serverPath}/api/users`,
-          qs.stringify({
-            account: values.account,
-            password: values.password,
-            email: values.email,
-            fullName: values.fullName,
-          })
-        )
+        .post(`${this.$store.state.serverPath}/api/users`, {
+          account: values.account,
+          password: values.password,
+          email: values.email,
+          fullName: values.fullName,
+        })
         .then(() => {
           this.$swal('註冊成功').then(() => {
             this.$parent.changeToLogin();
