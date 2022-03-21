@@ -4,7 +4,8 @@ import axios from 'axios';
 
 export default createStore({
   state: {
-    serverPath: 'https://shopping-cart-bn.herokuapp.com',
+    // serverPath: 'https://shopping-cart-bn.herokuapp.com',
+    serverPath: 'https://shopping-cart-bn-test.herokuapp.com',
     // serverPath: 'http://localhost:5000',
     userCart: [],
     isLogin: false,
