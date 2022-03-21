@@ -11,12 +11,12 @@
         ></a>
       </div>
 
-      <a
+      <router-link
         class="navbar-brand m-0 position-absolute top-50 start-50 translate-middle"
-        href="/"
+        to="/"
       >
         <img src="../assets/shop-logo.svg" alt="kohola-logo" />
-      </a>
+      </router-link>
 
       <div class="navbar-nav flex-row">
         <router-link
