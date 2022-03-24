@@ -4,23 +4,24 @@
       <div class="row pt-5 justify-content-center">
         <button
           class="col-6"
-          :class="{ active: isSignup }"
-          @click="changeToSignup"
+          :class="{ active: currentPanel === 'SignupPanel' }"
+          @click="currentPanel = 'SignupPanel'"
         >
           註冊會員
         </button>
         <button
           class="col-6"
-          :class="{ active: isLogin }"
-          @click="changeToLogin"
+          :class="{ active: currentPanel === 'LoginPanel' }"
+          @click="currentPanel = 'LoginPanel'"
         >
           會員登入
         </button>
       </div>
       <div class="row pb-5">
         <div class="col-12 m-auto panel">
-          <LoginPanel v-if="isLogin" />
-          <SignupPanel v-if="isSignup" />
+          <keep-alive>
+            <component :is="currentPanel"></component>
+          </keep-alive>
         </div>
       </div>
     </div>
@@ -38,9 +39,8 @@ export default {
   },
   data() {
     return {
-      isLogin: true,
-      isSignup: false,
       prevPath: null,
+      currentPanel: 'LoginPanel',
     };
   },
   beforeRouteEnter(to, from, next) {
@@ -49,14 +49,6 @@ export default {
     });
   },
   methods: {
-    changeToSignup() {
-      this.isLogin = false;
-      this.isSignup = true;
-    },
-    changeToLogin() {
-      this.isLogin = true;
-      this.isSignup = false;
-    },
     redirectAfterLogin() {
       if (this.prevPath) this.$router.push({ path: this.prevPath });
       else this.$router.push({ name: 'products' });
