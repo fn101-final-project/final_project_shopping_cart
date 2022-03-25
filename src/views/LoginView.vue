@@ -19,9 +19,7 @@
       </div>
       <div class="row pb-5">
         <div class="col-12 m-auto panel">
-          <keep-alive>
-            <component :is="currentPanel"></component>
-          </keep-alive>
+          <component :is="currentPanel" />
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@
         <ProductBox v-bind="product" />
       </template>
     </div>
-    <paginate
+    <Paginate
       v-model="page"
       :page-count="pageCount"
       :prev-text="'&#xab;'"
@@ -15,7 +15,7 @@
       :page-class="'page-item'"
       :page-link-class="'page-link'"
     >
-    </paginate>
+    </Paginate>
   </div>
 </template>
 
@@ -27,7 +27,7 @@ import Paginate from 'vuejs-paginate-next';
 export default {
   components: {
     ProductBox,
-    paginate: Paginate,
+    Paginate,
   },
   data() {
     return {
