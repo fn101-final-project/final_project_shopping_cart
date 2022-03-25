@@ -27,7 +27,9 @@
             /></svg
         ></router-link>
         <div v-else class="row">
-          <div class="col text-nowrap greetings">Hi {{ userName }}</div>
+          <div class="col text-nowrap greetings d-none d-md-block">
+            Hi {{ userName }}
+          </div>
           <router-link
             class="nav-link col pe-4"
             title="會員登出"
@@ -70,6 +72,7 @@ export default {
 
 <style scoped>
 nav {
+  padding: 30px;
   height: 100px;
   border-bottom: 1px solid rgb(128, 128, 128, 0.4);
   background: linear-gradient(
