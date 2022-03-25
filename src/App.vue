@@ -1,15 +1,15 @@
 <template>
-  <NavbarComponent v-if="pageExist" :key="isLogin" />
+  <Navbar v-if="pageExist" :key="isLogin" />
   <router-view />
 </template>
 
 <script>
-import NavbarComponent from '@/components/NavBar.vue';
+import Navbar from '@/components/NavBar.vue';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    NavbarComponent,
+    Navbar,
   },
   data() {
     return {
