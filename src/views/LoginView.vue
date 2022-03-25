@@ -41,15 +41,20 @@ export default {
       currentPanel: 'LoginPanel',
     };
   },
+  provide() {
+    return {
+      prevPath: this.prevPath,
+      changePanel: this.changePanel,
+    };
+  },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
       vm.prevPath = from.path;
     });
   },
   methods: {
-    redirectAfterLogin() {
-      if (this.prevPath) this.$router.push({ path: this.prevPath });
-      else this.$router.push({ name: 'products' });
+    changePanel(panel) {
+      this.currentPanel = panel;
     },
   },
 };

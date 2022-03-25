@@ -46,16 +46,19 @@ export default {
       loginError: '',
     };
   },
+  inject: ['prevPath'],
   methods: {
     onSubmit(values) {
       this.$axios
         .post('/api/users/login', {
-            account: values.account,
-            password: values.password,
+          account: values.account,
+          password: values.password,
         })
         .then((response) => {
           this.$store.dispatch('setLogin', response.data.data.userName);
-          this.$parent.redirectAfterLogin();
+          //導回上一頁
+          if (this.prevPath) this.$router.push({ path: this.prevPath });
+          else this.$router.push({ name: 'products' });
         })
         .catch((error) => {
           if (error.response && error.response.status === 400) {

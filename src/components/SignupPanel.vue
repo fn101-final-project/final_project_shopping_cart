@@ -98,6 +98,7 @@ export default {
       isUserExist: false,
     };
   },
+  inject: ['changePanel'],
   watch: {
     account: {
       handler() {
@@ -121,7 +122,7 @@ export default {
         })
         .then(() => {
           this.$swal('註冊成功').then(() => {
-            this.$parent.changeToLogin();
+            this.changePanel('LoginPanel');
           });
         })
         .catch((error) => {
