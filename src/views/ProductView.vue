@@ -99,32 +99,36 @@ export default {
       if (typeof this.number === 'string')
         this.number = Number(this.number.replace(/\D/g, ''));
     },
-    beforeAdd() {
+    checkAmount() {
       if (!Number(this.number)) {
         this.warning = '請輸入有效數字';
         this.isDisabled = true;
+        return false;
       }
       if (this.number > this.product.quantity) {
         this.warning = '庫存不足，請調整數量';
         this.isDisabled = true;
+        return false;
       }
-    },
-    addToCart() {
-      this.beforeAdd();
-
       const productInCart = this.$store.state.userCart.find(
         (product) => product.product_id === this.product.id
       );
-
       if (productInCart) {
         if (productInCart.amount + this.number > this.product.quantity) {
-          this.warning = '庫存不足，請重新調整數量';
-          return true;
+          this.warning = '庫存不足，請調整數量';
+          return false;
         }
       }
-
-      this.$store.dispatch('addToCart', [this.product.id, Number(this.number)]);
-      this.$swal('已加入購物車');
+      return true;
+    },
+    addToCart() {
+      if (this.checkAmount()) {
+        this.$store.dispatch('addToCart', [
+          this.product.id,
+          Number(this.number),
+        ]);
+        this.$swal('已加入購物車');
+      }
     },
   },
 };
