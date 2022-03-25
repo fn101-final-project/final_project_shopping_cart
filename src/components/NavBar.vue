@@ -62,9 +62,9 @@ export default {
   methods: {
     doLogout() {
       this.$axios.get('/api/users/logout').then(() => {
-          this.$store.dispatch('setLogout');
-          this.$router.push({ name: 'products' });
-        });
+        this.$store.dispatch('setLogout');
+        this.$router.push({ name: 'products' });
+      });
     },
   },
 };

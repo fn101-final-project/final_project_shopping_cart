@@ -38,9 +38,9 @@ export default {
   },
   mounted() {
     this.$axios.get('/api/products').then((response) => {
-        this.sliceProducts(response.data);
-        this.pageCount = this.products.length;
-      });
+      this.sliceProducts(response.data);
+      this.pageCount = this.products.length;
+    });
   },
   watch: {
     page: {
