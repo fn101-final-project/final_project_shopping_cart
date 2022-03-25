@@ -45,8 +45,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   data() {
     return {
@@ -59,8 +57,8 @@ export default {
     };
   },
   mounted() {
-    axios
-      .get(`${this.$store.state.serverPath}/api/products/${this.productId}`)
+    this.$axios
+      .get(`/api/products/${this.productId}`)
       .then((response) => {
         this.product = response.data[0];
         this.isLoaded = true;
@@ -79,7 +77,7 @@ export default {
   },
   methods: {
     parseImgPath(path) {
-      return `${this.$store.state.serverPath}/img${path}`;
+      return `${process.env.VUE_APP_API_BASE_URL}/img${path}`;
     },
     increase() {
       this.cleanNumber();
@@ -133,11 +131,5 @@ img {
   width: 400px;
   height: 600px;
   object-fit: cover;
-}
-
-@media (min-width: 768px) {
-  .product-img {
-    text-align: end;
-  }
 }
 </style>

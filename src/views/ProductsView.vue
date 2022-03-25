@@ -20,8 +20,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-import ProductBox from '@/components/ProductBoxComponent.vue';
+import ProductBox from '@/components/ProductBox.vue';
 import Paginate from 'vuejs-paginate-next';
 
 export default {
@@ -38,9 +37,7 @@ export default {
     };
   },
   mounted() {
-    axios
-      .get(`${this.$store.state.serverPath}/api/products`)
-      .then((response) => {
+    this.$axios.get('/api/products').then((response) => {
         this.sliceProducts(response.data);
         this.pageCount = this.products.length;
       });

@@ -31,7 +31,6 @@
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import FacebookBtn from '@/components/FacebookBtn.vue';
-import axios from 'axios';
 
 export default {
   components: {
@@ -47,17 +46,11 @@ export default {
   },
   methods: {
     onSubmit(values) {
-      axios
-        .post(
-          `${this.$store.state.serverPath}/api/users/login`,
-          {
+      this.$axios
+        .post('/api/users/login', {
             account: values.account,
             password: values.password,
-          },
-          {
-            withCredentials: true,
-          }
-        )
+        })
         .then((response) => {
           this.$store.dispatch('setLogin', response.data.data.userName);
           this.$parent.redirectAfterLogin();

@@ -53,18 +53,13 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { mapState } from 'vuex';
 
 export default {
   computed: { ...mapState(['isLogin', 'userName']) },
   methods: {
     doLogout() {
-      axios
-        .get(`${this.$store.state.serverPath}/api/users/logout`, {
-          withCredentials: true,
-        })
-        .then(() => {
+      this.$axios.get('/api/users/logout').then(() => {
           this.$store.dispatch('setLogout');
           this.$router.push({ name: 'products' });
         });

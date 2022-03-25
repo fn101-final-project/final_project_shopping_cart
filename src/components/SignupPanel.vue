@@ -82,7 +82,6 @@
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import FacebookBtn from '@/components/FacebookBtn.vue';
-import axios from 'axios';
 
 export default {
   components: {
@@ -113,8 +112,8 @@ export default {
   },
   methods: {
     onSubmit(values) {
-      axios
-        .post(`${this.$store.state.serverPath}/api/users`, {
+      this.$axios
+        .post('/api/users', {
           account: values.account,
           password: values.password,
           email: values.email,
