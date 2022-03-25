@@ -1,6 +1,6 @@
 <template>
   <div class="d-grid gap-2 p-4 border-bottom">
-    <FacebookBtn>註冊</FacebookBtn>
+    <FacebookBtn action="註冊" />
   </div>
   <Form class="d-grid p-4 text-end" @submit="onSubmit">
     <Field

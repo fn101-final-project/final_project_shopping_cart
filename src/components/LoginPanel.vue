@@ -1,6 +1,6 @@
 <template>
   <div class="d-grid gap-2 p-4 border-bottom">
-    <FacebookBtn>登入</FacebookBtn>
+    <FacebookBtn action="登入" />
   </div>
   <div class="pt-4">請輸入您的登入資訊</div>
   <Form class="d-grid p-4 text-end" @submit="onSubmit">
