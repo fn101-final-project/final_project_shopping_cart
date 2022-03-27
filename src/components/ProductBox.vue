@@ -34,11 +34,22 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 img {
-  width: 200px;
-  height: 300px;
+  width: 100%;
   object-fit: cover;
+  @media (min-width: 576px) {
+    width: 240px;
+    height: 360px;
+  }
+  @media (min-width: 768px) {
+    width: 200px;
+    height: 300px;
+  }
+  @media (min-width: 992px) {
+    width: 220px;
+    height: 300px;
+  }
 }
 
 h6 {

@@ -1,14 +1,12 @@
 <template>
   <nav class="navbar sticky-top">
     <div class="container-fluid position-relative">
-      <div class="navbar-nav flex-row">
-        <a class="nav-link" title="找商品" href="#"
-          ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path
-              d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"
-            /></svg
-        ></a>
-      </div>
+      <a class="nav-link" title="找商品" href="#"
+        ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path
+            d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"
+          /></svg
+      ></a>
       <router-link
         class="navbar-brand m-0 position-absolute top-50 start-50 translate-middle"
         to="/products"
@@ -27,7 +25,7 @@
             /></svg
         ></router-link>
         <div v-else class="row">
-          <div class="col text-nowrap greetings d-none d-md-block">
+          <div class="col text-nowrap greetings d-none d-md-block pe-3">
             Hi {{ userName }}
           </div>
           <router-link
@@ -70,10 +68,11 @@ export default {
 };
 </script>
 
-<style scoped>
-nav {
-  padding: 30px;
-  height: 100px;
+<style scoped lang="scss">
+.navbar {
+  color: rgb(98, 98, 98, 0.8);
+  padding: 1rem;
+  min-height: 2.5rem;
   border-bottom: 1px solid rgb(128, 128, 128, 0.4);
   background: linear-gradient(
     180deg,
@@ -81,21 +80,43 @@ nav {
     rgba(255, 255, 255, 0.9113154193155126) 96%,
     rgba(255, 255, 255, 0.8394199944789114) 100%
   );
-}
 
-.navbar-brand img {
-  width: 70px;
-}
+  @media (min-width: 768px) {
+    padding: 1.4rem;
+    min-height: 2.7rem;
+  }
+  @media (min-width: 992px) {
+    padding: 1.6rem;
+    min-height: 3rem;
+  }
 
-.navbar-nav svg {
-  width: 24px;
-  fill: rgb(98, 98, 98, 0.8);
-}
+  img {
+    width: 2.8rem;
+    @media (min-width: 768px) {
+      width: 3.2rem;
+    }
+    @media (min-width: 992px) {
+      width: 3.6rem;
+    }
+  }
 
-.greetings {
-  font-size: 20px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color: rgb(98, 98, 98, 0.8);
-  padding: 10px 24px 0 0;
+  svg {
+    width: 1rem;
+    fill: rgb(98, 98, 98, 0.8);
+    @media (min-width: 768px) {
+      width: 1.2rem;
+    }
+    @media (min-width: 992px) {
+      width: 1.3rem;
+    }
+  }
+
+  .greetings {
+    font-size: 1em;
+    padding-top: 0.6rem;
+    @media (min-width: 992px) {
+      font-size: 1.2em;
+    }
+  }
 }
 </style>

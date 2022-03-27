@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div v-if="isLoaded" class="row py-5 g-5">
+    <div v-if="isLoaded" class="row py-5 gy-5">
       <div class="col-md-6 text-center text-md-end">
         <img
           class="img-fluid"
@@ -8,12 +8,12 @@
           alt="product image"
         />
       </div>
-      <div class="col-md-6 product-text text-start px-5">
-        <h1>{{ product.name }}</h1>
+      <div class="col-md-6 text-start px-5">
+        <h3>{{ product.name }}</h3>
         <div>NT${{ product.price }}</div>
         <div class="select-form pt-5">
           <label>購買數量:</label>
-          <div class="input-group my-3">
+          <div class="input-group my-3 w-75">
             <button
               class="btn btn-outline-secondary"
               type="button"

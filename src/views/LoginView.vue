@@ -1,6 +1,6 @@
 <template>
   <div class="background">
-    <div class="container px-5">
+    <div class="container px-4">
       <div class="row pt-5 justify-content-center">
         <button
           class="col-6"
@@ -65,7 +65,7 @@ button {
   background: rgb(233, 233, 233);
   border: 1px solid rgba(128, 128, 128, 0.3);
   height: 60px;
-  max-width: 300px;
+  max-width: 250px;
 }
 
 button:first-of-type {
@@ -81,6 +81,6 @@ button.active {
   background: white;
   border: 1px solid rgba(128, 128, 128, 0.3);
   border-top: none;
-  max-width: 600px;
+  max-width: 500px;
 }
 </style>

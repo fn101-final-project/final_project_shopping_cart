@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container pb-5">
     <div class="text-start py-5">Breadcrumb & Filter</div>
-    <div class="row">
+    <div class="row px-3">
       <template v-for="product in pageProducts" :key="product.id">
         <ProductBox v-bind="product" />
       </template>
