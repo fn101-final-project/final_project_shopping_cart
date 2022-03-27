@@ -4,7 +4,7 @@ module.exports = defineConfig({
   pages: {
     index: {
       entry: 'src/main.js',
-      title: 'KOHOLA',
+      title: 'KOHOLA Tshirt',
     },
   },
   publicPath: process.env.BASE_URL,
