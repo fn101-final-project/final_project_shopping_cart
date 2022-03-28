@@ -1,12 +1,12 @@
 <template>
-  <div class="container">
+  <div class="container pb-5">
     <div class="text-start py-5">Breadcrumb & Filter</div>
-    <div class="row">
+    <div class="row px-3">
       <template v-for="product in pageProducts" :key="product.id">
         <ProductBox v-bind="product" />
       </template>
     </div>
-    <paginate
+    <Paginate
       v-model="page"
       :page-count="pageCount"
       :prev-text="'&#xab;'"
@@ -15,35 +15,32 @@
       :page-class="'page-item'"
       :page-link-class="'page-link'"
     >
-    </paginate>
+    </Paginate>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import ProductBox from '@/components/ProductBoxComponent.vue';
+import ProductBox from '@/components/ProductBox.vue';
 import Paginate from 'vuejs-paginate-next';
 
 export default {
   components: {
     ProductBox,
-    paginate: Paginate,
+    Paginate,
   },
   data() {
     return {
       page: 1,
       pageCount: 0,
       products: [],
-      productCountPerPage: 2,
+      productCountPerPage: 4,
     };
   },
   mounted() {
-    axios
-      .get(`${this.$store.state.serverPath}/api/products`)
-      .then((response) => {
-        this.sliceProducts(response.data);
-        this.pageCount = this.products.length;
-      });
+    this.$axios.get('/api/products').then((response) => {
+      this.sliceProducts(response.data);
+      this.pageCount = this.products.length;
+    });
   },
   watch: {
     page: {

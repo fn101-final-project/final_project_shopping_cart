@@ -1,6 +1,6 @@
 <template>
   <div class="d-grid gap-2 p-4 border-bottom">
-    <FacebookBtn>註冊</FacebookBtn>
+    <FacebookBtn action="註冊" />
   </div>
   <Form class="d-grid p-4 text-end" @submit="onSubmit">
     <Field
@@ -82,7 +82,6 @@
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import FacebookBtn from '@/components/FacebookBtn.vue';
-import axios from 'axios';
 
 export default {
   components: {
@@ -99,6 +98,7 @@ export default {
       isUserExist: false,
     };
   },
+  inject: ['changePanel'],
   watch: {
     account: {
       handler() {
@@ -113,8 +113,8 @@ export default {
   },
   methods: {
     onSubmit(values) {
-      axios
-        .post(`${this.$store.state.serverPath}/api/users`, {
+      this.$axios
+        .post('/api/users', {
           account: values.account,
           password: values.password,
           email: values.email,
@@ -122,7 +122,7 @@ export default {
         })
         .then(() => {
           this.$swal('註冊成功').then(() => {
-            this.$parent.changeToLogin();
+            this.changePanel('LoginPanel');
           });
         })
         .catch((error) => {

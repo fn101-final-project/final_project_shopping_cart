@@ -1,6 +1,6 @@
 <template>
   <div class="background">
-    <div class="container px-5">
+    <div class="container px-4">
       <div class="row pt-5 justify-content-center">
         <button
           class="col-6"
@@ -19,9 +19,7 @@
       </div>
       <div class="row pb-5">
         <div class="col-12 m-auto panel">
-          <keep-alive>
-            <component :is="currentPanel"></component>
-          </keep-alive>
+          <component :is="currentPanel" />
         </div>
       </div>
     </div>
@@ -43,15 +41,20 @@ export default {
       currentPanel: 'LoginPanel',
     };
   },
+  provide() {
+    return {
+      prevPath: this.prevPath,
+      changePanel: this.changePanel,
+    };
+  },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
       vm.prevPath = from.path;
     });
   },
   methods: {
-    redirectAfterLogin() {
-      if (this.prevPath) this.$router.push({ path: this.prevPath });
-      else this.$router.push({ name: 'products' });
+    changePanel(panel) {
+      this.currentPanel = panel;
     },
   },
 };
@@ -62,7 +65,7 @@ button {
   background: rgb(233, 233, 233);
   border: 1px solid rgba(128, 128, 128, 0.3);
   height: 60px;
-  max-width: 300px;
+  max-width: 250px;
 }
 
 button:first-of-type {
@@ -78,6 +81,6 @@ button.active {
   background: white;
   border: 1px solid rgba(128, 128, 128, 0.3);
   border-top: none;
-  max-width: 600px;
+  max-width: 500px;
 }
 </style>
