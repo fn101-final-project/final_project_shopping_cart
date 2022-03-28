@@ -3,7 +3,7 @@
     class="col-lg-3 col-md-4 col-sm-6 product d-flex justify-content-center pb-5"
   >
     <div
-      class="product-box d-flex flex-column text-start"
+      class="d-flex flex-column text-start click-area"
       @click="goToProduct(id)"
     >
       <img :src="parseImgPath(pic)" alt="product image" />
@@ -35,24 +35,28 @@ export default {
 </script>
 
 <style scoped lang="scss">
-img {
-  width: 100%;
-  object-fit: cover;
-  @media (min-width: 576px) {
-    width: 240px;
-    height: 360px;
-  }
-  @media (min-width: 768px) {
-    width: 200px;
-    height: 300px;
-  }
-  @media (min-width: 992px) {
-    width: 220px;
-    height: 300px;
-  }
-}
+.click-area {
+  cursor: pointer;
 
-h6 {
-  font-weight: 700;
+  img {
+    width: 100%;
+    object-fit: cover;
+    @media (min-width: 576px) {
+      width: 240px;
+      height: 360px;
+    }
+    @media (min-width: 768px) {
+      width: 200px;
+      height: 300px;
+    }
+    @media (min-width: 992px) {
+      width: 220px;
+      height: 300px;
+    }
+  }
+
+  h6 {
+    font-weight: 700;
+  }
 }
 </style>

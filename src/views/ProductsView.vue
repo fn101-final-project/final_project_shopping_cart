@@ -33,7 +33,7 @@ export default {
       page: 1,
       pageCount: 0,
       products: [],
-      productCountPerPage: 2,
+      productCountPerPage: 4,
     };
   },
   mounted() {
